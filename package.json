@@ -1,7 +1,8 @@
 {
-  "name": "api-project",  "description": "Node.js API project",
+  "name": "api-project",
+  "description": "Node.js API project",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "engines": {
     "node": ">=16"
@@ -13,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/RavaMarghe/api-project/issues"
   },
-  "homepage": "https://github.com/RavaMarghe/api-project#readme"
+  "homepage": "https://github.com/RavaMarghe/api-project#readme",
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
 }
