@@ -1,4 +1,4 @@
 module.exports = {
-  testEnviroment: "node",
-  verbose: true,
+    testEnviroment: "node",
+    verbose: true,
 };
