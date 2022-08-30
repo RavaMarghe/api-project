@@ -5,7 +5,26 @@ import app from "./app";
 const request = supertest(app);
 
 test("GET /planets", async () => {
-    const planets = [];
+    const planets = [
+        {
+            id: 4,
+            name: "Mercury",
+            description: "",
+            diameter: 1234,
+            moons: 12,
+            createdAt: "2022-08-30T10:39:20.124Z",
+            updatedAt: "2022-08-30T10:39:47.286Z",
+        },
+        {
+            id: 5,
+            name: "Venus",
+            description: "",
+            diameter: 5678,
+            moons: 0,
+            createdAt: "2022-08-30T10:39:41.521Z",
+            updatedAt: "2022-08-30T10:39:28.601Z",
+        },
+    ];
 
     // @ts-ignore
     prismaMock.planet.findMany.mockResolvedValue(planets);
