@@ -6,6 +6,16 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.planets"
+}
+
+model Planet {
+    id              Int         @id @default(autoincrement())
+    name            String
+    description     String?
+    diameter        Int
+    moons           Int
+    createdAt       DateTime    @default(now())
+    updatedAt       DateTime    @updatedAt
 }
