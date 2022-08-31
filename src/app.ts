@@ -1,5 +1,6 @@
 import express from "express";
 import "express-async-errors";
+import { nextTick } from "process";
 import prisma from "./lib/prisma/client";
 import {
     validate,
@@ -16,6 +17,21 @@ app.get("/planets", async (request, response) => {
     const planets = await prisma.planet.findMany();
 
     response.json(planets);
+});
+
+app.get("/planets/:id(\\d+)", async (request, response, next) => {
+    const planetID = Number(request.params.id);
+
+    const planet = await prisma.planet.findUnique({
+        where: { id: planetID },
+    });
+
+    if (!planet) {
+        response.status(404);
+        return next(`Cannot GET /planets/${planetID}`);
+    }
+
+    response.json(planet);
 });
 
 app.post(
