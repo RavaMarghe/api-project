@@ -64,10 +64,25 @@ app.put(
             response.status(200).json(planet);
         } catch (error) {
             response.status(404);
-            next(`Cannot PUT /planets/${planetId}`)
+            next(`Cannot PUT /planets/${planetId}`);
         }
     }
 );
+
+app.delete("/planets/:id(\\d+)", async (request, response, next) => {
+    const planetId = Number(request.params.id);
+
+    try {
+        await prisma.planet.delete({
+            where: { id: planetId },
+        });
+
+        response.status(204).end();
+    } catch (error) {
+        response.status(404);
+        next(`Cannot DELETE /planets/${planetId}`);
+    }
+});
 
 app.use(validationErrorMiddleware);
 

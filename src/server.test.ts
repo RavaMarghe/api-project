@@ -68,7 +68,7 @@ describe("GET /planets/:id", () => {
             .expect(404)
             .expect("Content-Type", /text\/html/);
 
-        expect(response.text).toContain("Cannot GET /planets/1")
+        expect(response.text).toContain("Cannot GET /planets/1");
     });
 
     test("Invalid planet ID", async () => {
@@ -77,7 +77,7 @@ describe("GET /planets/:id", () => {
             .expect(404)
             .expect("Content-Type", /text\/html/);
 
-        expect(response.text).toContain("Cannot GET /planets/asdf")
+        expect(response.text).toContain("Cannot GET /planets/asdf");
     });
 });
 
@@ -188,7 +188,7 @@ describe("PUT /planets/:id", () => {
             .expect(404)
             .expect("Content-Type", /text\/html/);
 
-        expect(response.text).toContain("Cannot PUT /planets/1")
+        expect(response.text).toContain("Cannot PUT /planets/1");
     });
 
     test("Invalid planet ID", async () => {
@@ -203,6 +203,33 @@ describe("PUT /planets/:id", () => {
             .expect(404)
             .expect("Content-Type", /text\/html/);
 
-        expect(response.text).toContain("Cannot PUT /planets/asdf")
+        expect(response.text).toContain("Cannot PUT /planets/asdf");
+    });
+});
+
+describe("DELETE /planets/:id", () => {
+    test("Valid request", async () => {
+        const response = await request.delete("/planets/4").expect(204);
+        expect(response.text).toEqual("");
+    });
+
+    test("Planet does not exist", async () => {
+        // @ts-ignore
+        prismaMock.planet.delete.mockRejectedValue(new Error("Error"));
+        const response = await request
+            .delete("/planets/1")
+            .expect(404)
+            .expect("Content-Type", /text\/html/);
+
+        expect(response.text).toContain("Cannot DELETE /planets/1");
+    });
+
+    test("Invalid planet ID", async () => {
+        const response = await request
+            .delete("/planets/asdf")
+            .expect(404)
+            .expect("Content-Type", /text\/html/);
+
+        expect(response.text).toContain("Cannot DELETE /planets/asdf");
     });
 });
