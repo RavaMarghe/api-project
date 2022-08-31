@@ -41,14 +41,25 @@ describe("GET /planets", () => {
 describe("POST /planets", () => {
     test("Valid request", async () => {
         const planet = {
+            id: 6,
             name: "Mercury",
+            description: null,
             diameter: 1234,
             moons: 12,
+            createdAt: "2022-08-31T12:38:13.477Z",
+            updatedAt: "2022-08-31T12:38:13.480Z",
         };
+
+        // @ts-ignore
+        prismaMock.planet.create.mockResolvedValue(planet);
 
         const response = await request
             .post("/planets")
-            .send(planet)
+            .send({
+                name: "Mercury",
+                diameter: 1234,
+                moons: 12,
+            })
             .expect(201)
             .expect("Content-type", /application\/json/);
         expect(response.body).toEqual(planet);
