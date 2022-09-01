@@ -8,9 +8,8 @@ import {
     planetSchema,
     PlanetData,
 } from "./lib/validation";
-import { initMulterMiddelware } from "./lib/middelware/multer";
-
-const upload = initMulterMiddelware();
+import { initMulterMiddleware } from "./lib/middelware/multer";
+const upload = initMulterMiddleware();
 
 const corsOptions = {
     origin: "http://localhost:8080",
