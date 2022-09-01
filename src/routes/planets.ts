@@ -6,7 +6,7 @@ import {
     validate,
     planetSchema,
     PlanetData,
-} from "../lib/validation";
+} from "../lib/middelware/validation";
 
 import { initMulterMiddleware } from "../lib/middelware/multer";
 
