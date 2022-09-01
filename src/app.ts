@@ -3,10 +3,16 @@ import "express-async-errors";
 
 import { validationErrorMiddleware } from "./lib/middelware/validation";
 import { initCorsrMiddleware } from "./lib/middelware/cors";
+import { initSessionMiddleware } from "./lib/middelware/session";
+import { passport } from "./lib/middelware/passport";
 
 import planetsRoutes from "./routes/planets";
 
 const app = express();
+
+app.use(initSessionMiddleware())
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(express.json());
 
