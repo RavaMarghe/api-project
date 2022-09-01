@@ -17,7 +17,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.get("/planets", async (request, response) => {
     const planets = await prisma.planet.findMany();
