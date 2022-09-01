@@ -8,6 +8,9 @@ import {
     planetSchema,
     PlanetData,
 } from "./lib/validation";
+import { initMulterMiddelware } from "./lib/middelware/multer";
+
+const upload = initMulterMiddelware();
 
 const corsOptions = {
     origin: "http://localhost:8080",
@@ -17,7 +20,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.get("/planets", async (request, response) => {
     const planets = await prisma.planet.findMany();
@@ -89,6 +92,23 @@ app.delete("/planets/:id(\\d+)", async (request, response, next) => {
         next(`Cannot DELETE /planets/${planetId}`);
     }
 });
+
+app.post(
+    "/planets/:id(\\d+)/photo",
+    upload.single("photo"), //"photo" corrisponde al nome dell'input nel file web\upload.html
+    async (request, response, next) => {
+        console.log("request.file", request.file);
+
+        if (!request.file) {
+            response.status(400);
+            return next("No photo file uploaded.");
+        }
+
+        const photoFilename = request.file.filename;
+
+        response.status(201).json({ photoFilename });
+    }
+);
 
 app.use(validationErrorMiddleware);
 
