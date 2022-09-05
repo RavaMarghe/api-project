@@ -23,7 +23,6 @@ router.get(
 
 router.get(
     "/github/callback",
-    // @ts-ignore
     passport.authenticate("github", {
         failureRedirect: "/auth/github/login",
         keepSessionInfo: true,

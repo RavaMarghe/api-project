@@ -4,7 +4,7 @@ import config from "../../config"
 
 export function initSessionMiddleware() {
     return session({
-        secret: "config.SESSION_SECRET",
+        secret: config.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
     });
