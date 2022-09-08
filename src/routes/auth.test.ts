@@ -19,9 +19,11 @@ describe("GET /auth/login", () => {
         const response = await request
             .get("/auth/login")
             .expect(400)
-            .expect("Content-Type", /text\/html/);
+            .expect("Content-Type", /application\/json/);
 
-        expect(response.text).toContain("Missing redirectTo query string parameter");
+        expect(response.body.message).toContain(
+            "Missing redirectTo query string parameter"
+        );
     });
 });
 
@@ -39,9 +41,11 @@ describe("GET /auth/logout", () => {
         const response = await request
             .get("/auth/logout")
             .expect(400)
-            .expect("Content-Type", /text\/html/);
+            .expect("Content-Type", /application\/json/);
 
-        expect(response.text).toContain("Missing redirectTo query string parameter");
+        expect(response.body.message).toContain(
+            "Missing redirectTo query string parameter"
+        );
     });
 });
 
@@ -50,7 +54,10 @@ describe("GET /auth/github/login", () => {
         await request
             .get("/auth/github/callback")
             .expect(302)
-            .expect("Location", /^https:\/\/github.com\/login\/oauth\/authorize/)
+            .expect(
+                "Location",
+                /^https:\/\/github.com\/login\/oauth\/authorize/
+            )
             .expect("Access-Control-Allow-Origin", "http://localhost:8080")
             .expect("Access-Control-Allow-Credentials", "true");
     });
@@ -61,7 +68,10 @@ describe("GET /auth/github/callback", () => {
         await request
             .get("/auth/github/callback")
             .expect(302)
-            .expect("Location", /^https:\/\/github.com\/login\/oauth\/authorize/)
+            .expect(
+                "Location",
+                /^https:\/\/github.com\/login\/oauth\/authorize/
+            )
             .expect("Access-Control-Allow-Origin", "http://localhost:8080")
             .expect("Access-Control-Allow-Credentials", "true");
     });

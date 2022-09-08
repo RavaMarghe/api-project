@@ -5,6 +5,7 @@ import { validationErrorMiddleware } from "./lib/middelware/validation";
 import { initCorsrMiddleware } from "./lib/middelware/cors";
 import { initSessionMiddleware } from "./lib/middelware/session";
 import { passport } from "./lib/middelware/passport";
+import {notFoundMiddleware, initErrorMiddleware} from "./lib/middelware/error"
 
 import planetsRoutes from "./routes/planets";
 import authRoutes from "./routes/auth"
@@ -21,7 +22,9 @@ app.use(initCorsrMiddleware())
 
 app.use("/planets", planetsRoutes);
 app.use("/auth", authRoutes)
+app.use(notFoundMiddleware)
 
 app.use(validationErrorMiddleware);
+app.use(initErrorMiddleware(app.get("env")))
 
 export default app;
